@@ -1,0 +1,139 @@
+#include <iostream>  
+#include <conio.h>  
+#include <stdio.h>  
+#include <cstdlib>
+  
+  using namespace std;
+int top=0,r=-1,data[100]; 
+  int batas[20]; 
+struct data  
+{  
+    int id;  
+    char nm[10];  
+    char almt[10];  
+    int tlp;  
+}  
+    perpus[20];  
+  
+void search()  
+{     int cari,ketemu;  
+       cout<<"masukan nomer ID member: ";cin>>cari;  
+      ketemu=0;  
+      for (int i=top;i<=r;i++)  
+      {  
+          if(perpus[i].id==cari)  
+         {  
+             ketemu=1;  
+            cout<<"data ditemukan pada index ke:"<<r<<endl;  
+            cout<<"nama member    : "<<perpus[r].nm<<endl;  
+               cout<<"alamat member  : "<<perpus[r].almt<<endl;  
+               cout<<"telepon member : "<<perpus[r].tlp<<endl;  
+         }  
+      }  
+          if(ketemu==0)  
+         { cout<<"data tidak ada";}  
+}  
+  
+void perpustakaan()  
+{  
+   system("cls"); 
+   cout<<"-------------------"<<endl;  
+    cout<<"Masukan         :"<<endl;  
+   cout<<"-------------------"<<endl;  
+    cout<<"nomor ID member : ";cin>>perpus[r].id;
+	cin.ignore();  
+    cout<<"nama member     : ";gets(perpus[r].nm);  
+    cout<<"alamat member   : ";gets(perpus[r].almt);  
+    cout<<"telpon member   : ";cin>>perpus[r].tlp;  
+} 
+void pop_data()  
+{  
+    top+=1;  
+    cout<<endl<<"Data di hapus !"<<endl;  
+}  
+void kosong(){
+	cout<<"terima kasih bos"<<endl;
+}
+
+main()  
+{  
+	
+    char lagi;  
+    int pil; 
+	cout<<"Batas :";
+	cin>>batas[r]; 
+	menu:
+    system("cls");  
+      cout<<"MENU TAMPILAN"<<endl;  
+        cout<<"\n1. Insert \n2. Delete \n3. View \n4. Search\n"<<endl;  
+       cout<<"Masukan pilihan : ";
+       pil=_getch();
+		
+      if(pil=='1'){
+      	
+               	 for(int i=0;i<batas[r];i++){
+               	 	system("cls");
+ 	  cout<<"-------------------"<<endl;  
+  	  cout<<"Masukan         :"<<endl;  
+  	  cout<<"-------------------"<<endl;  
+   	  cout<<"nomor ID member : ";cin>>perpus[r].id;
+    	cin.ignore();  
+      cout<<"nama member     : ";gets(perpus[r].nm);  
+     cout<<"alamat member   : ";gets(perpus[r].almt);  
+      cout<<"telpon member   : ";cin>>perpus[r].tlp;  
+        
+		}
+	cout<< "Masih lanjut [y/t]? ";
+        lagi=_getch();
+            if (lagi == 'y'){
+            goto menu;}
+            else {
+            	kosong();
+			}
+	}
+	
+    else if(pil=='2'){
+			   {if(top==0&&r==-1) 
+			   {cout<<"Data Kosong !"<<endl;}  
+                else {
+						pop_data();}}  }
+   else if(pil=='3'){
+         for(int i=0;i<batas[r];i++){
+         cout<<endl;  
+      cout<<"Data yang telah dimasukan :"<<endl;  
+        cout<<"nomer ID      : "<<perpus[r].id<<endl;  
+       cout<<"nama member   : "<<perpus[r].nm<<endl;  
+       cout<<"alamat member : "<<perpus[r].almt<<endl;  
+       cout<<"telpon member : "<<perpus[r].tlp<<endl; 
+			
+		 }
+	}
+	
+		else if(pil=='4'){
+         int cari,ketemu;  
+       cout<<"masukan nomer ID member: ";cin>>cari;  
+      ketemu=0;  
+      for (int i=0;i<=cari;i++)  
+      {  
+          if(perpus[i].id==cari)  
+         {  
+             ketemu=1;  
+            cout<<"data ditemukan pada index ke:"<<r<<endl;  
+            cout<<"nama member    : "<<perpus[r].nm<<endl;  
+               cout<<"alamat member  : "<<perpus[r].almt<<endl;  
+               cout<<"telepon member : "<<perpus[r].tlp<<endl;  
+         }  
+  
+	}
+  }
+  else{
+  	cout<<" trima kasih ";
+  	lagi=_getch();
+  	if(lagi=='y'){
+  		goto menu;
+  		}else {
+  			kosong();
+		  }
+	  }
+  }
+  

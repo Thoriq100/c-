@@ -1,0 +1,260 @@
+#include <constream.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+struct nasabah
+{
+ char norek[12];
+ char nama[25];
+ char alamat[50];
+ double saldo;
+};
+
+struct simpul
+{
+ char norek[12];
+ char nama[25];
+ char alamat[50];
+ double saldo;
+ struct simpul *berikut;
+};
+
+struct simpul *awal=NULL, *akhir=NULL;
+struct nasabah bank;
+
+void tambah_list_dibelakang(struct nasabah info);
+void isi_list();
+void sisip_list(struct simpul *first,struct nasabah info,char posisi[20]);
+void sisip_isi_list();
+void tampil_list();
+void hapus_simpul(char info);
+void hapus_data();
+void hapus_list();
+void menu();
+
+void main()
+{
+ clrscr();
+ menu();
+ getch();
+}
+void menu()
+{
+ int pil;
+ clrscr();
+ cout<<"Programmer : Shandy Johan_6311171"<<endl<<endl;
+ cout<<"Pilih Transaksi  : "<<endl;
+ cout<<"            1. Isi List"<<endl;
+ cout<<"            2. Sisip List"<<endl;
+ cout<<"            3. Tampil List"<<endl;
+ cout<<"            4. Hapus Salah Satu"<<endl;
+ cout<<"            5. Hapus Semua List"<<endl;
+ cout<<"            6. Exit"<<endl<<endl;
+ cout<<"Tentukan Pilihan : ";
+ cin>>pil;
+ switch (pil)
+ {
+  case 1:
+       isi_list();
+       break;
+  case 2:
+       sisip_isi_list();
+       break;
+  case 3:
+       tampil_list();
+       break;
+  case 4:
+       hapus_data();
+       break;
+  case 5:
+       hapus_list();
+       break;
+  case 6:
+       clrscr();
+       gotoxy(21,13);cout<<"Terima Kasih Telah Menggunakan Program Ini";
+       break;
+ }
+}
+
+void isi_list()
+{
+ char jawab;
+
+ do
+ {
+  clrscr();
+  cout<<"No Rekening : ";
+  cin>>bank.norek;
+  cout<<"Nama        : ";
+  cin>>bank.nama;
+  cout<<"Alamat      : ";
+  cin>>bank.alamat;
+  cout<<"Saldo Awal  : ";
+  cin>>bank.saldo;
+  tambah_list_dibelakang(bank);
+  cout<<"\n\nTambah Data [Y/T] : ";
+  cin>>jawab;
+ }
+ while (toupper(jawab)!='T');
+ menu();
+}
+
+void tambah_list_dibelakang(struct nasabah info)
+{
+ struct simpul *baru;
+
+ baru = (struct simpul *) malloc (sizeof(struct simpul));
+ strcpy (baru -> norek,info.norek);
+ strcpy (baru -> nama,info.nama);
+ strcpy (baru -> alamat,info.alamat);
+ baru -> saldo = info.saldo;
+
+ if (awal == NULL)
+ {
+  awal = baru;
+ }
+  else
+  {
+   akhir -> berikut = baru;
+  }
+ akhir = baru;
+ akhir -> berikut = NULL;
+}
+
+void tampil_list()
+{
+ clrscr();
+ struct simpul *baca;
+ int i;
+
+ baca = awal;
+ i = 1;
+
+ while (baca != NULL)
+ {
+  cout<<"Data Ke : "<<i<<endl;
+  cout<<"No Rekening  : "<<baca -> norek<<endl;
+  cout<<"Nama         : "<<baca -> nama<<endl;
+  cout<<"Alamat       : "<<baca -> alamat<<endl;
+  cout<<"Saldo Awal   : "<<baca -> saldo<<endl;
+  cout<<endl;
+  i++;
+  baca = baca -> berikut;
+ }
+ getch();
+ menu();
+}
+
+void hapus_list()
+{
+ struct simpul *hapus;
+ hapus = awal;
+ while (hapus != NULL)
+ {
+  awal = hapus -> berikut;
+  free(hapus);
+  hapus = awal;
+ }
+ menu();
+}
+
+
+void sisip_list(struct simpul *first, struct nasabah info, char posisi[20])
+{
+ struct simpul *bantu,*baru;
+
+ baru = new simpul;
+ strcpy (baru -> norek,info.norek);
+ strcpy (baru -> nama,info.nama);
+ strcpy (baru -> alamat,info.alamat);
+ baru-> saldo = info.saldo;
+ bantu = first;
+
+ do
+ {
+  if (strcmp(posisi,bantu->norek)!=0)
+  {
+   bantu = bantu->berikut;
+  }
+ }
+ while (bantu !=NULL & strcmp(posisi,bantu->norek)!=0);
+
+ baru->berikut = bantu -> berikut;
+ bantu -> berikut = baru;
+}
+
+void sisip_isi_list()
+{
+ char cari[20];
+ struct nasabah ganti;
+  clrscr();
+  cout<<"Input Data Baru"<<endl;
+  cout<<"No Rekening : ";
+  cin>>ganti.norek;
+  cout<<"Nama        : ";
+  cin>>ganti.nama;
+  cout<<"Alamat      : ";
+  cin>>ganti.alamat;
+  cout<<"Saldo Awal  : ";
+  cin>>ganti.saldo;
+  cout<<endl;
+  cout<<"Data Akan Disisipkan Setelah No Rekening : ";
+  gets(cari);
+  sisip_list(awal,ganti,cari);
+  menu();
+}
+
+void hapus_simpul(char info[20])
+{
+ struct simpul *bantu,*hapus;
+
+ if (awal==NULL) { cout<<"\n Data List Kosong ";}
+ else
+ {
+  if (strcmp(awal->norek,info)==0)
+  {
+   hapus=awal;
+   awal=hapus->berikut;
+   free(hapus);
+  }
+   else
+   {
+    bantu=awal;
+    while ((strcmp(info,bantu->berikut->norek)!=0) && (bantu->berikut!=NULL))
+    {
+     bantu=bantu->berikut;
+    }
+    hapus=bantu->berikut;
+    if (hapus!=NULL)
+    {
+     if (hapus!=akhir) { bantu->berikut=hapus->berikut;}
+     else
+     {
+      akhir=bantu;
+      akhir->berikut=NULL;
+     }
+     free(hapus);
+    }
+   }
+  }
+}
+
+
+void hapus_data()
+{
+ char cari[20];
+ char jawab;
+
+ clrscr();
+
+ cout<<"\nAda data yang akan dihapus Y/T :";cin>>jawab;
+ if (toupper(jawab)=='Y')
+ {
+  cout<<"\nNo.Rekening yang akan dihapus :";
+  gets(cari);
+  hapus_simpul(cari);
+  menu();
+ }
+}

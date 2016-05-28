@@ -1,0 +1,48 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+
+typedef struct simpul{
+	
+	int data;
+	simpul *next;
+}toriq;
+
+main(){
+
+	toriq *awal,*akhir,*baru,*bantu, *b1;
+	awal=NULL;
+	int data1,tekan;
+	do
+	{
+		printf("Masukan data :");
+		cin>>data1;
+		
+		baru=new simpul;
+		baru->data=data1;
+		baru->next=NULL;
+		if(data1%2!=0){
+		if(awal==NULL){
+			awal=baru;
+			akhir=baru;
+		}
+		else{
+			akhir->next=baru;
+			akhir=baru;
+		}
+}
+	
+		cout <<"ingin tambah lagi tekan 1 =";
+		cin>>tekan;
+		
+	}
+	while(tekan==1);
+	
+	bantu=awal;
+	while(bantu){
+		cout << bantu->data << " ";
+		bantu=bantu->next;
+		}
+}

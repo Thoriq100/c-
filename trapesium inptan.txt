@@ -1,0 +1,51 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+#include<conio.h>
+
+using namespace std;
+
+int main() 
+{
+    int a,tinggi,lebar,data=0,b;
+    char c;
+
+    cout<<"Silahkan inputkan lebar atas : ";
+    cin>>a;
+
+    cout<<"Silahkan inputkan Tinggi : ";
+    cin>>tinggi;
+
+    cout<<"Masukan Karakter : ";
+    cin>>c;
+
+    lebar=a+(2*(tinggi-1));
+    cout<<setw(lebar);
+
+    for(int i=0;i<a;i++)
+    {
+        cout<<c;
+    }
+    cout<<endl;
+    data++;
+    lebar--;
+
+    b=a+1;
+
+    while(data<tinggi)
+    {
+        cout<<setw(lebar);
+
+        for(int i=0;i<=b;i++)
+        {
+            cout<<c;
+        }
+        cout << endl;
+
+        data++;
+        lebar--;
+        b=b+2;
+    }
+    getch();
+    return 0;
+}

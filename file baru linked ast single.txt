@@ -1,0 +1,204 @@
+#include 
+#include 
+
+typedef struct simpul tsimpul;
+struct simpul
+{
+	char nilai[20];
+   tsimpul *selanjutnya;
+};
+tsimpul *awal = NULL, *akhir = NULL, *data;
+
+void tampilkan(){
+	tsimpul *b1=awal;
+   if(awal!=NULL){
+   	cout<<"Isi Data ==>  ";
+   	while(b1!=NULL)
+   	{
+   		cout<nilai;
+      	b1=b1->selanjutnya;
+      	cout<<"  ";
+   	}
+   }else
+   	cout<<"Data Masih Kosong . . . . ";
+}
+void t_awal(char *in){
+	data=new simpul;
+   strcpy(data->nilai,in);
+//   =in;
+   data->selanjutnya=NULL;
+   if(awal==NULL){
+   	awal=akhir=data;
+   }else{
+   	data->selanjutnya=awal;
+      awal=data;
+   }
+}
+void t_akhir(char *in){
+   data=new simpul;
+   strcpy(data->nilai,in);
+   data->selanjutnya=NULL;
+   if(awal==NULL)
+   	awal=akhir=NULL;
+   else{
+   	akhir->selanjutnya=data;
+      akhir=data;
+   }
+}
+void t_tengahh(char *in,char *setelah){
+	tsimpul *b1=awal;
+   tsimpul *b2=b1->selanjutnya;
+   char ada=1;
+   while (b1 != NULL){
+   //fungsi dari string.h ^_^v
+        if (strcmp(b1->nilai,setelah)== 0){
+            ada=0;
+            break;
+		  }
+        b1 = b1->selanjutnya;
+        if(b1!=NULL)
+        		b2= b2->selanjutnya;
+    }
+   if(ada==1){
+   	gotoxy(1,21);
+      cout<<"Ke Sallahan Data Yang Di Masukkan Tidak Falid";
+   }else{
+   	data=new simpul;
+   strcpy(data->nilai,in);
+      b1->selanjutnya=data;
+      data->selanjutnya=b2;
+      if(data->selanjutnya==NULL){
+         akhir=data;
+      }
+   }
+}
+
+void ubah_(char *in,char *pos){
+	tsimpul *b= awal;
+   char ada=1;
+	while(b!=NULL){
+		if(strcmp(b->nilai,pos)== 0){
+      		ada=0;
+            break;
+      }
+      b=b->selanjutnya;
+   }
+   if(ada==1){
+      gotoxy(1,21);
+      cout<<"Ke Sallahan Data Yang Di Masukkan Tidak Falid";
+   }else{
+   strcpy(b->nilai,in);
+   }
+}
+
+void  h_awal(){
+	tsimpul *b1=awal;
+	if(awal==akhir){
+   	delete  awal;
+      awal=akhir=NULL;
+   }else{
+		b1=awal->selanjutnya;
+      delete awal;
+      awal=b1;
+   }
+
+}
+void h_akhir(){
+	tsimpul *b1=awal;
+   if(awal==akhir){
+		delete  awal;
+      awal=akhir=NULL;
+   }else{
+      while(b1->selanjutnya!=akhir)
+      	b1=b1->selanjutnya;
+      delete akhir;
+      b1->selanjutnya=NULL;
+      akhir=b1;
+   }
+}
+
+void h_tengahh(char *deleta){
+	tsimpul *b1=awal;
+   tsimpul *b2=b1->selanjutnya;
+   char ada=1;
+   while (b1 != NULL){
+        if (strcmp(b1->selanjutnya->nilai,deleta)== 0){
+            ada=0;
+            break;
+		  }
+        b1 = b1->selanjutnya;
+        if(b1!=NULL)
+        		b2=b2->selanjutnya;
+    }
+   if(ada==1){
+   	gotoxy(1,21);
+      cout<<"Ke Sallahan Data Yang Di Masukkan Tidak Falid";
+   }else{
+      tsimpul *b3=b2->selanjutnya;
+      delete b2;
+      b1->selanjutnya=b3;
+      if(b1->selanjutnya==NULL){
+         akhir=data;
+      }
+   }
+
+}
+
+main(){
+   int pil;
+  atas:
+   tampilkan();
+   gotoxy(1,9);cout<<"--Menu--";
+   gotoxy(1,10);cout<<"1. Tambah Awal ";
+   gotoxy(1,11);cout<<"2. Tambah Tengah ";
+   gotoxy(1,12);cout<<"3. Tambah Akhir ";
+   gotoxy(1,13);cout<<"4. Hapus Awal";
+   gotoxy(1,14);cout<<"5. Hapus Tengah";
+   gotoxy(1,15);cout<<"6. Hapus Akhir";
+   gotoxy(1,16);cout<<"7. Ubah Data";
+   gotoxy(1,17);cout<<"Masukkan Pilihan Anda : ";
+   cin>>pil;
+
+   char angka[20];
+   char setelaha[20];
+   gotoxy(1,19);
+   switch(pil){
+        case 1:
+        		cout<<"Masukkan Nama : ";cin>>angka;
+         	t_awal(angka);
+            break;
+        case 2:
+        		cout<<"Masukkan Nama : ";cin>>angka;
+            gotoxy(1,20);cout<<"Di Masukkan Setellah : ";cin>>setelaha;
+         	t_tengahh(angka,setelaha);
+            break;
+        case 3:
+        		cout<<"Masukkan Nama : ";cin>>angka;
+            t_akhir(angka);
+            break;
+        case 4:
+        		if(awal!=NULL)
+            	h_awal();
+            break;
+        case 5:
+        		char deletaa[20];
+            gotoxy(1,19);cout<<"Yang Akan Di Hapus : ";cin>>deletaa;
+         	h_tengahh(deletaa);
+            break;
+        case 6:
+        		if(awal!=NULL)
+            	h_akhir();
+            break;
+        case 7:
+
+        		cout<<"Masukkan Nama : ";cin>>angka;
+            gotoxy(1,20);cout<<"Di Masukkan Nilai Yang Akan Dirubah : ";cin>>setelaha;
+         	ubah_(angka,setelaha);
+            break;
+        default:
+        		gotoxy(1,21);cout<<"Inputan Salah . . .";
+            break;
+   }
+   goto atas;
+}
+

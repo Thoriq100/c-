@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+int main ()
+{
+                   int n, i, A[100];
+         
+          cout << "Masukan berapa banyak bilangan :";
+          cin>>n;
+          for (i=0; i<n; i++)
+          {
+                   cout << "Masukan nilai ke "<< i+1 << " : ";
+                   cin>> A[i];
+          }
+          int totg=0, gnp=0, totj=0, gjl=0;
+          for (i=0; i<n; i++)
+          {
+                   if (A[i]%2==0)
+                   {
+                             totg=totg+A[i];
+                             gnp=gnp+1;
+                   }
+                   else
+                   {
+                             totj=totj+A[i];
+                             gjl=gjl+1;
+                   }       
+          }
+          cout << "Jumlah Bilangan Genap : " << gnp << endl;
+          cout << "Jumlah Genap : " << totg << endl;
+          cout << "Jumlah Bilangan ganjil : " << gjl << endl;
+          cout << "Jumlah Ganjil : " << totj;
+         
+          return 0;
+}

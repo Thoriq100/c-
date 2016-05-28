@@ -1,0 +1,265 @@
+#include <stdio.h>
+#include <string.h>
+
+
+struct Mahasiswa
+{
+struct Mahasiswa *next;
+char nim[10];
+char nama[25];
+float nilai;
+};
+
+
+typedef struct Mahasiswa Mhs;
+
+
+Mhs* tambah_data_awal(Mhs *);
+Mhs* tambah_data_urut(Mhs *);
+Mhs* tambah_data_akhir(Mhs *);
+void lihat_data(Mhs *);
+
+
+main(void)
+{
+int pil;
+Mhs *mhs;
+
+
+mhs = NULL;
+
+
+do
+{
+system("cls");
+
+
+printf("1. Tambah Data Awal\n");
+printf("2. Tambah Data Akhir\n");
+printf("3. Tambah Data Urut\n");
+printf("4. Lihat Data\n");
+printf("5. Keluar\n\n");
+
+
+printf("Masukkan Pilihan Anda : ");
+scanf("%d", &pil);
+
+
+switch(pil)
+{
+case 1 :
+mhs = tambah_data_awal(mhs);
+break;
+case 2 :
+mhs = tambah_data_akhir(mhs);
+break;
+case 3 :
+mhs = tambah_data_urut(mhs);
+break;
+case 4 :
+lihat_data(mhs);
+break;
+case 5 :
+continue;
+}
+}
+while(pil != 5);
+
+
+return 0;
+}
+
+
+Mhs* tambah_data_awal(Mhs *mhs)
+{
+Mhs *mhsw;
+
+
+system("cls");
+
+
+mhsw = malloc(sizeof(Mhs));
+mhsw->next = NULL;
+
+
+fflush(stdin);
+
+
+printf("Masukkan Nim   : ");
+gets(mhsw->nim);
+
+
+printf("Masukkan Nama  : ");
+gets(mhsw->nama);
+
+
+printf("Masukkan Nilai : ");
+scanf("%f", &mhsw->nilai);
+
+
+if(mhs == NULL)
+{
+mhs = mhsw;
+}
+else
+{
+mhsw->next = mhs;
+}
+
+
+printf("\n");
+system("pause");
+
+
+return mhsw;
+}
+
+
+Mhs* tambah_data_urut(Mhs *mhs)
+{
+Mhs *head;
+Mhs *mhsw;
+Mhs *tile;
+
+
+system("cls");
+
+
+head = mhs;
+tile = NULL;
+
+
+mhsw = malloc(sizeof(Mhs));
+mhsw->next = NULL;
+
+
+fflush(stdin);
+
+
+printf("Masukkan Nim   : ");
+gets(mhsw->nim);
+
+
+printf("Masukkan Nama  : ");
+gets(mhsw->nama);
+
+
+printf("Masukkan Nilai : ");
+scanf("%f", &mhsw->nilai);
+
+
+if(mhs == NULL)
+{
+mhs = mhsw;
+}
+else
+{
+while(atoi(mhsw->nim) > atoi(head->nim) && head != NULL)
+{
+tile = head;
+
+
+if(head->next != NULL)
+head = head->next;
+else
+head->next = mhsw;
+}
+
+
+if(tile == NULL)
+{
+mhsw->next = head;
+mhs = mhsw;
+}
+else if(atoi(mhsw->nim) < atoi(head->nim))
+{
+mhsw->next = head;
+tile->next = mhsw;
+}
+}
+
+
+printf("\n");
+system("pause");
+
+
+return mhs;
+}
+
+
+Mhs* tambah_data_akhir(Mhs *mhs)
+{
+Mhs *head;
+Mhs *mhsw;
+
+
+system("cls");
+
+
+head = mhs;
+
+
+mhsw = malloc(sizeof(Mhs));
+mhsw->next = NULL;
+
+
+fflush(stdin);
+
+
+printf("Masukkan Nim   : ");
+gets(mhsw->nim);
+
+
+printf("Masukkan Nama  : ");
+gets(mhsw->nama);
+
+
+printf("Masukkan Nilai : ");
+scanf("%f", &mhsw->nilai);
+
+
+if(mhs == NULL)
+{
+mhs = mhsw;
+}
+else
+{
+while(head->next != NULL)
+{
+head = head->next;
+}
+
+
+head->next = mhsw;
+}
+
+
+printf("\n");
+system("pause");
+
+
+return mhs;
+}
+
+
+void lihat_data(Mhs *mhs)
+{
+system("cls");
+
+
+printf("%-10s%-25s%s", "Nim", "Nama", "Nilai\n");
+printf("----------------------------------------\n");
+
+
+while(mhs != NULL)
+{
+printf("%-10s%-25s%.2f\n", mhs->nim, mhs->nama, mhs->nilai);
+
+
+mhs = mhs->next;
+}
+
+
+printf("\n");
+system("pause");
+}

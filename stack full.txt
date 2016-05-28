@@ -1,0 +1,264 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define STACK_MAX 10 //mendefinisikan isi tumpukan sebanyak 10 tumpukan
+#define STACK_LEN 21 //mendefinisikan panjang string sebanyak 21 karakter
+
+/*membuat struct untuk tumpukan*/
+struct STACK{
+ int top_elm;
+ char index[STACK_MAX][STACK_LEN];
+}stack;
+
+/*prosedur pemberian nilai awal pada top (inisialisasi)*/
+void init(){
+ stack.top_elm = -1;
+}
+
+/*fungsi untuk memeriksa apakah tumpukan penuh atau tidak*/
+int IsFull(){
+ if(stack.top_elm == STACK_MAX-1)
+  return 1;
+ else
+  return 0;
+}
+
+/*fungsi untuk memeriksa apakah tumpukan kosong atau tidak*/
+int IsEmpty(){
+ if(stack.top_elm == -1)
+  return 1;
+ else
+  return 0;
+}
+
+/*fungsi untuk menghitung panjang string*/
+int CountString(char *e){
+    int count;
+    count=strspn(e,e);
+    if(count<STACK_LEN) return 1;
+    else return 0;
+}
+
+/*prosedur operator Push pada stack.
+ meletakkan elemen baru pada posisi atas tumpukan */
+void Push(char *d){
+ stack.top_elm++;
+ strcpy(stack.index[stack.top_elm],d);
+}
+
+/*prosedur operator Pop pada stack.
+mengeluarkan eleman paling atas pada tumpukan*/
+void Pop(){
+ stack.top_elm--;
+}
+
+/*prosedur operator Pop pada stack
+mengeluarkan sebanyak n elemen teratas pada tumpukan*/
+void MultiPop(int n){
+    if(n<=stack.top_elm+1){
+         for(int i=0;i<n;i++){
+            stack.top_elm--;
+         }
+    }
+    else{
+         printf("\n%d Melebihi Jumlah Tumpukan Yang Ada!",n);
+         getch();
+    }
+}
+
+/*prosedur operator Push pada stack
+menumpuk sebanyak multi elemen*/
+void MultiPush(){
+     int multi;
+     char elemen[STACK_LEN];
+    
+     printf("\nJumlah Data Input:");scanf("%d",&multi);
+     printf("\n");
+    
+     if((multi+stack.top_elm)<STACK_MAX){
+          for(int n=1;n<=multi;n++){
+               fflush(stdin);
+               printf("Masukkan Data %d (Maks 20 Karakter): ",n);gets(elemen);
+               if(CountString(elemen))Push(elemen);
+               else{
+                    printf("String Pada Data ke %d Terlalu Panjang",n);
+                    getch();
+               }
+          }
+     }
+     else{
+          printf("Stack Maksimal=>10 Tumpukan s/d Array[9]");
+          getch();
+     }   
+}
+
+/*prosedur untuk menampilkan elemen stack*/
+void ViewStack(){
+ int i;
+
+ if(!IsEmpty()){
+  for(i=stack.top_elm;i>=0;i--){
+   printf("Elemen array[%d]= %s\n",i,stack.index[i]);
+  }
+  printf("\n");
+ }else{
+  printf("-NULL-\n\n");
+ }
+}
+
+/*prosedur untuk menampilkan elemen TOP dan NOEL pada stack*/
+void ViewTopNoel(){
+     int j,h;
+     if(!IsEmpty()){
+        j=stack.top_elm;
+        h=j;
+        h++;
+        printf("Elemen Puncak [TOP(s)]  : %s\n",stack.index[j]);
+        printf("Jumlah Elemen [NOEL(s)] : %d\n",h);
+        printf("\n");
+     }else{
+        printf("-NULL-\n\n");
+        putchar('\n');
+     }
+}
+
+/*prosedur untuk menghapus stack dengan mengeluarkan semua elemen melalui
+looping prosedur pop*/
+void ClearStack(){
+     while(!IsEmpty()){
+      Pop();
+     }
+}
+
+/*Interface dan Main Function*/
+int main(){
+ int op,count,multi;
+ char elemen[STACK_LEN];
+
+ printf("\t      ==================================================\n");
+    printf("\t      |                PROGRAM STACK                   |\n");
+    printf("\t      |------------------------------------------------|\n");
+    printf("\t      |                                                |\n");
+    printf("\t      | - Andi Amrurrahman Maula  (108091000052)       |\n");
+    printf("\t      | - Ade Rifaldi             (108091000056)       |\n");
+    printf("\t      | - Priyangga               (108091000058)       |\n");
+    printf("\t      |                                                |\n");
+    printf("\t      |Compiled With Bloodshed DevC++                  |\n");
+    printf("\t      |------------------------------------------------|\n");
+    printf("\t      |            TI-B 2008 Semester 3                |\n");
+    printf("\t      |    Teknik Informatika - FST UIN Jakarta        |\n");
+    printf("\t      ==================================================\n");
+    printf("\t      |         Press Any Key To Continue              |\n");
+    printf("\t      ==================================================\n");
+
+ printf("\t      ");getch();
+
+ init();
+
+ do{
+        menu:
+  system("cls");
+      
+  printf("\nISI STACK SAAT INI:\n\n");
+        ViewStack();
+        printf("\nSTATUS ELEMEN STACK:\n\n");
+        ViewTopNoel();
+      
+        printf("=====================================\n");
+  printf("|Menu & Operasi Program Stack:      |\n");
+  printf("|1. Operasi PUSH                    |\n");
+  printf("|2. Operasi MultiPUSH               |\n");
+  printf("|3. Operasi POP                     |\n");
+  printf("|4. Operasi MultiPOP                |\n");
+  printf("|5. Hapus Stack                     |\n");
+  printf("|6. Exit                            |\n");
+  printf("=====================================\n");
+  printf("Pilih Menu/Operasi [1-4]: ");
+        scanf("%d",&op);
+
+  fflush(stdin);
+
+  switch(op){
+   case 1:
+    {
+     if(IsFull()){
+      printf("\nStack Sudah Penuh!");
+      getch();
+     }
+                    else{
+      printf("\nInput Data(Max 20 Karakter): ");
+      gets(elemen);
+                        if(CountString(elemen)){
+                             Push(elemen);
+                        }else{
+                             printf("\nString Terlalu Panjang");
+                             getch();
+                             goto menu;
+                        }
+     }
+    }
+   break;
+   case 2:
+    {
+     if(IsFull()){
+      printf("\nStack Sudah Penuh!");
+      getch();
+     }
+                    else{
+                        MultiPush(); 
+                    }
+    }
+   break;
+   case 3:
+     {
+     if(IsEmpty()){
+      printf("\nStack Dalam Keadaan Kosong!!");
+      getch();
+     }
+                    else{
+      Pop();
+     }
+     }
+     break;
+     case 4:
+     {
+     if(IsEmpty()){
+      printf("\nStack Dalam Keadaan Kosong!!");
+      getch();
+     }
+                    else{
+                        printf("\nJumlah Elemen Teratas Yang Akan Dikeluarkan: ");
+                        scanf("%d",&multi);
+      MultiPop(multi);
+     }
+     }
+     break;
+            case 5:
+                 {
+                  if(IsEmpty()){
+      printf("\nStack Dalam Keadaan Kosong!!");
+      getch();
+                  }
+                  else{
+                        ClearStack();
+                   } 
+                 }
+            break;
+      case 6:
+                 {
+                 goto exit;
+                 }
+   default:
+                 {
+                  printf("Menu untuk nomor %d tidak tersedia!", op);
+                  getch(); 
+                 }
+  }
+
+ }while(op!=6);
+      
+    exit:
+ return 0;
+}

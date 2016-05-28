@@ -1,0 +1,17 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+
+int main(){
+	char nama[5][4][22]={"Ac milan","Barcelona","data","PSG","Real Betis","Ganus","ginis","gurih","dobil","dobol","Gredd","tuuy","TOBuh","REod","poooil","doookl","loooop","loooiu","pooolio","goool"};
+	for(int i=0;i<=4;i++){
+		
+		printf("Groub %d \n",i+1);
+		for(int s=0;s<4;s++){
+			printf("     %d.%s  \n",s+1,nama[i][s]);
+		}
+		cout<<endl;
+	}
+}

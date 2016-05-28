@@ -1,0 +1,373 @@
+#include <iostream.h>
+#include <conio.h>
+#include <string.h>
+#include <iomanip.h>
+
+struct Tbuku{
+int kode;
+char judul[40];
+char pengarang[25];
+char file[20];
+int jumlah_buku;
+Tbuku *next;};
+
+typedef Tbuku * pointer;
+typedef pointer list_buku;
+
+//fungsi login
+//void login();
+
+//fungsi menu
+void menu(int &pil_menu);
+
+//fungsi create list_buku
+void createlist_buku(list_buku & first);
+
+//fungsi create_element_list buku
+void create_element_buku(pointer & p);
+
+//fungsi insert buku di awal
+void insert_first_buku(list_buku & first, pointer pBaru);
+
+//fungsi insert buku di akhir
+void insert_last_buku(list_buku & first, pointer pBaru);
+
+//fungsi cari buku
+void search_buku(list_buku first, int key, int & status, pointer &pCari);
+
+//fungsi insert buku setelah buku tertentu
+void insert_after_buku(list_buku & first, pointer pCari, pointer pBaru);
+
+//fungsi delete buku di awal
+void delete_first_buku(list_buku & first, pointer pHapus);
+
+//fungsi delete buku di akhir
+void delete_last_buku(list_buku & first, pointer pHapus);
+
+//fungsi hapus buku setelah buku tertentu
+void delete_after_buku(list_buku & first, pointer pCari, pointer pHapus);
+
+//fungsi hapus buku tertentu
+void delete_buku(list_buku & first, int key, int & status, pointer &pCari, pointer pHapus);
+
+//fungsi menampilkan daftar buku
+void daftar_buku(list_buku first);
+
+main()
+{ int pil_menu=0;
+menu(pil_menu);
+getch();
+return 0;
+}
+
+void menu(int &pil_menu)
+{list_buku buku,first;
+pointer baru, pCari, hapus;
+int kode, ada;
+clrscr();
+createlist_buku(buku);
+while(pil_menu!=9){
+clrscr();
+gotoxy(26,1); cout<<“ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»”;
+gotoxy(26,2); cout<<“º APLIKASI PERPUSTAKAAN º”;
+gotoxy(26,3); cout<<“ÌÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¹”;
+gotoxy(26,4); cout<<“º 1. Tambah Buku di Awal º”;
+gotoxy(26,5); cout<<“º 2. Tambah Buku di Akhir º”;
+gotoxy(26,6); cout<<“º 3. Tambah Buku setelah º”;
+gotoxy(26,7); cout<<“º 4. Hapus Buku di Awal º”;
+gotoxy(26,8); cout<<“º 5. Hapus Buku di Akhir º”;
+gotoxy(26,9); cout<<“º 6. Hapus Buku setelah º”;
+gotoxy(26,10); cout<<“º 7. Hapus Buku Tertentu º”;
+gotoxy(26,11); cout<<“º 8. Daftar Buku º”;
+gotoxy(26,12); cout<<“º 9. Keluar º”;
+gotoxy(26,13); cout<<“ÌÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¹”;
+gotoxy(26,14); cout<<“º Pilihan: º”;
+gotoxy(26,15); cout<<“ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼”;
+gotoxy(45,14); cin>>pil_menu;
+switch(pil_menu)
+{
+case 1 : create_element_buku(baru);
+insert_first_buku(buku, baru);
+break;
+case 2 : create_element_buku(baru);
+insert_last_buku(buku, baru);
+break;
+case 3 : clrscr();
+gotoxy(28,5); cout << “==============================”;
+gotoxy(28,6); cout << “Masukan buku setelah buku lain”;
+gotoxy(28,7); cout << “==============================”;
+gotoxy(33,9); cout << “Masukan kode buku: “; cin >> kode;
+search_buku(buku, kode, ada, pCari);
+if (ada == 0){
+gotoxy(28,7); cout << “Buku tersebut tidak ada”;
+getch();
+break;
+}
+else{
+gotoxy(10,7); cout << “Buku tersebut ada, Anda akan menambahkan buku sebelum buku \”” << pCari->judul << “\””;
+getch();
+create_element_buku(baru);
+insert_after_buku(buku, pCari, baru);
+getch();
+}
+break;
+case 4 : delete_first_buku(buku, hapus);
+getch();
+break;
+case 5 : delete_last_buku(buku, hapus);
+getch();
+break;
+case 6 : clrscr();
+gotoxy(28,5); cout << “==============================”;
+gotoxy(28,6); cout << “Hapus buku setelah buku lain”;
+gotoxy(28,7); cout << “==============================”;
+gotoxy(33,9); cout << “Masukan kode buku: “; cin >> kode;
+search_buku(buku, kode, ada, pCari);
+if (ada == 0){
+gotoxy(28,7); cout << “Buku tersebut tidak ada”;
+getch();
+break;
+}
+else{
+gotoxy(10,7); cout << “Buku tersebut ada, Anda akan menghapus buku sebelum buku \”” << pCari->judul << “\””;
+delete_after_buku(buku, pCari, hapus);
+getch();
+break;
+}
+case 7 : clrscr();
+gotoxy(28,5); cout << “===================”;
+gotoxy(28,6); cout << “Hapus buku tertentu”;
+gotoxy(28,7); cout << “===================”;
+gotoxy(28,9); cout << “Masukan kode buku: “; cin >> kode;
+search_buku(buku, kode, ada, pCari);
+if (ada == 0){
+gotoxy(28,7); cout << “Buku tersebut tidak ada”;
+getch();
+break;
+}
+else{
+delete_buku(buku, kode, ada, pCari, hapus);
+gotoxy(23,7); cout << “Buku tersebut berhasil dihapus”;
+getch();
+break;
+}
+case 8 : daftar_buku(buku);
+getch();
+break;
+case 9 : clrscr();
+gotoxy(30,15); cout << “Keluar dari aplikasi”;
+}
+}
+getch();
+}
+
+//fungsi create list buku
+void createlist_buku(list_buku & first)
+{
+first = NULL;
+}
+
+//fungsi create element list buku
+void create_element_buku(pointer & p)
+{
+p = new Tbuku;
+clrscr();
+gotoxy(15,2); cout <<” Tambah Daftar Buku Perpustakaan “;
+gotoxy(15,4); cout <<“ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»”;
+gotoxy(15,5); cout <<“º º”;
+gotoxy(15,6); cout <<“º Kode Buku : º”;
+gotoxy(15,7); cout <<“º Judul Buku : º”;
+gotoxy(15,8); cout <<“º Pengarang : º”;
+gotoxy(15,9); cout <<“º Jumlah : buah º”;
+gotoxy(15,10); cout <<“º º”;
+gotoxy(15,11); cout <<“ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼”;
+gotoxy(33,6); cin >> p->kode;
+cin.ignore();
+gotoxy(33,7);	cin.getline(p->judul,40);
+gotoxy(33,8);	cin.getline(p->pengarang,25);
+gotoxy(33,9);;	cin >> p->jumlah_buku;
+cin.ignore();
+p->next = 0;
+}
+
+//fungsi insert buku first
+void insert_first_buku(list_buku & first, pointer pBaru)
+{
+if (first ==0)
+first = pBaru;
+else{
+pBaru->next = first;
+first = pBaru;
+}
+}
+
+//fungsi insert buku di akhir
+void insert_last_buku(list_buku & first, pointer pBaru)
+{ pointer last;
+last = first;
+
+if (last == NULL)
+last = pBaru;
+else if (last->next == NULL)
+last->next = pBaru;
+else if (first->next != NULL){
+do{
+last = last->next;
+}while (last->next != NULL);
+last->next = pBaru;
+}
+}
+
+//fungsi cari buku
+void search_buku(list_buku first, int key, int & status, pointer &pCari)
+{
+pCari = first;
+status = 0;
+clrscr();
+while (pCari != NULL && status == 0){
+if (pCari->kode == key){
+status = 1;
+}
+else
+pCari = pCari->next;
+}
+}
+
+//fungsi insert buku setelah buku tertentu
+void insert_after_buku(list_buku & first, pointer pCari, pointer pBaru)
+{ clrscr();
+if (pCari->next != NULL){
+pBaru->next = pCari->next;
+pCari->next = pBaru;
+}
+else{
+pCari->next = pBaru;
+}
+}
+
+//fungsi delete buku first
+void delete_first_buku(list_buku & first, pointer pHapus)
+{
+pointer last;
+clrscr();
+gotoxy(35,5); cout << “=============”;
+gotoxy(35,6); cout << “Hapus di awal”;
+gotoxy(35,7); cout << “=============”;
+if (first == NULL){
+pHapus = NULL;
+gotoxy(30,10);cout <<“Maaf, List Masih Kosong”;
+}
+else if (first != NULL){
+pHapus = first;
+first = first->next;
+pHapus->next = NULL;
+}
+
+}
+
+//fungsi delete buku di akhir
+void delete_last_buku(list_buku & first, pointer pHapus)
+{
+pointer last, prev;
+clrscr();
+gotoxy(35,5); cout << “=============”;
+gotoxy(35,6); cout << “Hapus di akhir”;
+gotoxy(35,7); cout << “=============”;
+
+if (first == NULL){
+pHapus = NULL;
+gotoxy(30,10);cout <<“Maaf, List Masih Kosong”;
+}
+else if (first->next == NULL){
+pHapus = first;
+first = NULL;
+gotoxy(18,10); cout << “Buku berhasil dihapus, sehingga list kosong”;
+}
+else{
+prev = NULL;
+last = first;
+while (last->next != NULL){
+prev = last;
+last = last->next;
+}
+pHapus = last;
+prev->next = NULL;
+gotoxy(23,10); cout << “Buku yang terkahir berhasil dihapus”;
+}
+
+}
+
+//fungsi hapus buku setelah buku tertentu
+void delete_after_buku(list_buku & first, pointer pCari, pointer pHapus)
+{ clrscr();
+if (pCari->next == NULL){
+pHapus = NULL;
+}
+else{
+pHapus = pCari->next;
+pCari->next = pHapus->next;
+pHapus->next = NULL;
+gotoxy(5,7); cout << “Anda akan menghapus buku sebelum buku \”” << pCari->judul <<“\””;
+getch();
+}
+
+}
+
+//fungsi hapus buku tertentu
+void delete_buku(list_buku & first, int key, int & status, pointer &pCari, pointer pHapus)
+{ pointer last,prev;
+pCari = first;
+status = 0;
+clrscr();
+
+if (first == NULL){
+gotoxy(30,10);cout <<“Maaf, List Masih Kosong”;
+}
+else if (pCari->next == NULL){
+if (pCari->kode == key ){
+pHapus = pCari;
+pCari = NULL;
+//gotoxy(23,5); cout <<“Buku ” << pCari->kode <<” berhasil dihapus”;
+}
+}
+else if (pCari->next != NULL){
+while (pCari != NULL && status == 0){
+if (pCari->kode == key){
+pHapus = pCari;
+pCari = pCari->next;
+pHapus->next = NULL;
+status = 1;
+//cout <<“Buku ” << pCari->judul <<” berhasil dihapus”;
+}
+else
+pCari = pCari->next;
+}
+}
+first = pCari;
+}
+
+//fungsi list buku
+void daftar_buku(list_buku first)
+{ clrscr();
+int i=7,j=0;
+if (first == NULL){
+gotoxy(30,10);cout <<“Maaf, List Masih Kosong”;
+}else{
+gotoxy(1,2); cout<<” Daftar Buku Perpustakaan”;
+gotoxy(1,4); cout<<“ÚÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄ¿”;
+gotoxy(1,5); cout<<“³ No ³ Kode Buku ³ Pengarang Buku ³ Judul Buku ³ Stok Buku ³”;
+gotoxy(1,6);cout<<“³ÍÍÍÍ ÍÍÍÍÍÍÍÍÍÍÍ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ ÍÍÍÍÍÍÍÍÍÍÍ³”;
+do{
+gotoxy(1,i); cout<<“³”;
+gotoxy(3,i); cout<<++j; gotoxy(6,i); cout<<“³”;
+gotoxy(8,i); cout<< first->kode; gotoxy(18,i); cout<<“³”;
+gotoxy(20,i); cout<< first->pengarang; gotoxy(39,i); cout<<“³”;
+gotoxy(41,i); cout<< first->judul; gotoxy(68,i); cout<<“³”;
+gotoxy(70,i); cout<< first->jumlah_buku;
+gotoxy(80,i); cout<<“³”;
+i++;
+first = first->next;
+}while (first !=0);
+gotoxy(1,i);cout<<“ÀÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÙ”;
+}
+}

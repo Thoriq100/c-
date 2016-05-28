@@ -1,0 +1,15 @@
+#include <iostream>
+#include <conio.h>
+#include <iomanip>
+
+using namespace std;
+
+main(){
+	double real;
+real = 182.4;
+cout << setprecision(4);
+cout << "Nilai real = " << real;
+getch();
+	
+	
+}

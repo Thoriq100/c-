@@ -1,0 +1,25 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+
+using namespace std;
+int i,j,k,n;
+main(){
+
+printf("Masukan jumlah baris :");
+ cin>>n;
+ if(n==0)
+ n=n-1;
+for(i=1;i<=n;i++){
+	for(j=1;j<i;j++){
+	if((j+i==(n+1)/2)||(j+i==(((n-3))/2)+n))
+	cout<<"*";
+	else
+	if((j-i==((n+1)/3)-1)||(i-j==((n-1)/2)))
+	cout<<"*";
+	else
+	cout<<" ";}
+	cout<<"\n";
+}
+getch();
+}

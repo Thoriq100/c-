@@ -1,0 +1,22 @@
+var kecepatanAstroid: float = 6.0;
+var ledakan :Tranform;
+
+function Update () {
+    transform.Translate(Vector3.down*kecepatanAstroid*Time.deltaTime);
+    if (transform,Position.y<=-12)
+    {
+        transform.Position.y=12;
+        tranform.Position.x= Random.Range(-11,0,11,0);
+    }
+    function OnTriggerEnter(other :Collider){
+        if (other.gameObject.tag=="Player")
+        {
+            if(ledakan)
+            {
+                Instantiate(ledakan,transform,Position,transform,rotation);
+            }
+            transform.Position.y=13;
+            transform.Position.x=Random.Range(-11,0,11,0);
+        }
+    }
+}

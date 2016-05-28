@@ -1,0 +1,125 @@
+#include <iostream>
+#include <cstdlib>
+#include <stdio.h>
+using namespace std;
+
+#define max 30 //menentukan nilai max nya 30
+
+struct vcd {
+char nama[20];
+char genre[30]; //deklarasi stuct
+char tipe[20];
+int jml;
+char harga[30];
+} vcd[max];
+
+
+void init(void) {
+register int i;
+
+for(i = 0; i < max; i++)
+vcd[i].nama[0] = '\0';
+}
+
+
+int menu(void) {
+int pilih;
+
+cout<<"\n++++[ MENU DATA VCD ]++++\n";
+cout<<"1. Input \n";
+cout<<"2. Hapus \n";
+cout<<"3. Baca \n";
+cout<<"4. Keluar\n";
+
+do {
+cout<<" Pilih : ";
+cin >> pilih;
+} while(pilih < 0 || pilih > 4);
+cout<<"\n";
+return pilih;
+}
+
+int array_kosong(void) {
+register int i;
+
+for(i = 0; vcd[i].nama[0] && i < max; ++i);
+if(i == max)
+return -1;
+return i;
+}
+
+void input(void) {
+int t;
+
+// melakukan pencarian terhadap index array yang tidak digunakan
+t= array_kosong();
+//jika penuh
+if(t == -1) {
+cout<<"\nDaftar Penuh";
+return;
+}
+
+cout<<"***** Input Data VCD *****\n";
+cout<<" Nama VCD\t : ";
+gets(vcd[t].nama);
+cout<<" Tipe VCD\t : ";
+gets(vcd[t].tipe);
+cout<<" Genre VCD\t : ";
+gets(vcd[t].genre);
+cout<<" Jumlah VCD\t : ";
+cin >> vcd[t].jml;
+cout<<" Harga VCD\t :Rp ";
+gets(vcd[t].harga);
+}
+
+void hapus(void) {
+register int t;
+
+cout<<"Data yang ingin dihapus data ke: ";
+cin >>t;
+if(t >= 0 && t < max)
+vcd[t].nama[0] = '\0';
+}
+
+void list(void) {
+register int i;
+
+cout<<"***** Daftar VCD *****\n";
+for(i = 0; i < max; ++i) {
+if(vcd[i].nama[0]) {
+
+cout<<"\n Data VCD ke-"<< i;
+cout<<"\n Nama VCD\t: "<<vcd[i].nama;
+cout<<"\n Tipe VCD\t: "<< vcd[i].tipe;
+cout<<"\n Genre VCD\t: "<< vcd[i].genre;
+cout<<"\n Jumlah VCD\t: "<< vcd[i].jml;
+cout<<"\n Harga VCD\t: Rp "<<vcd[i].harga;
+cout<<"\n--------------------------\n";
+}
+}
+cout<<"\n";
+}
+
+int main(void) {
+int pilih;
+
+init();
+for( ; ; ) { /*for dikosongkan karena perubahan indeks perulangan ada
+dibadan loop, dan looping dihentikan dengan break */
+pilih = menu();
+switch(pilih) {
+case 1:
+input();
+break;
+case 2:
+hapus();
+break;
+case 3:
+list();
+break;
+case 4:
+exit(0);
+}
+}
+}
+https://www.youtube.com/watch?v=m8MvWviBh8I

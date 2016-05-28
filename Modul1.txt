@@ -1,0 +1,101 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <cstdlib>
+#include <string.h>
+#include <stdlib.h>
+
+using namespace std;
+
+void tampil(int *puser, struct data daftar[]);
+
+
+
+typedef struct data{
+	int rillis;
+	int pinjam;
+	int bataskembali;
+	string namabuku;
+	string namapeminjam;
+	string kota;
+	int noktp;
+	int kodebuku;
+}data1;
+
+int user;
+enum pilihan {Inputkan=1,Melihat,Menghapus
+};
+
+main(){
+	bool mulai = false;
+    bool hapus = false;
+	int i,pil,jeda;
+	data buku[user];
+
+	enum pilihan menu;
+	char *namamenu[]={"","Inputkan","Melihat","Menghapus"};
+	cout<<"_Pratikum modul 1_"<<endl;
+	for(int menu=Inputkan;menu<=3;menu++){
+		
+	printf("%2d.%11s\n",menu,namamenu[menu]);
+	}
+	do{
+		
+	cout<<"Silahkan Memilih Menu di atas :";
+	cin>>pil;
+
+	
+	switch(pil)
+		{
+		
+		case 1:
+			cout<<"Masukan banyak data :";
+			cin>>user;
+			
+				for(int i=0;i<user;i++){
+				cout<<"No KTP :";
+				cin>>buku[i].noktp;
+				cout<<"Nama anda :";
+				cin>>buku[i].namapeminjam;
+				
+				cout<<"Nama Buku :";
+				cin>>buku[i].namabuku;
+				cout<<"Kode Buku :";
+				cin>>buku[i].kodebuku;
+				cout<<"Tanggal rilis :";
+				cin>>buku[i].rillis;
+				cout<<"Tanggal pinjam :";
+				cin>>buku[i].pinjam;
+				cout<<"Tanggal kembali :";
+				cin>>buku[i].bataskembali;
+				
+							
+			};
+			
+			
+		
+			break;
+		case 2:
+				system ("cls");
+                tampil(&user,buku);	
+                break;
+				
+				
+		}
+
+	}while(!mulai);
+}
+
+
+void tampil(int *puser, struct data buku[]){
+	for(int i=0;i<*puser;i++){
+        cout << "\nNo. "<<i+1<<". "<<endl;
+        cout << "Nama: "<<buku[i].noktp<< endl;
+    };
+}
+void isi(){	
+
+	
+			
+
+}

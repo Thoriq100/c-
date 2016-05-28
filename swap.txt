@@ -1,0 +1,89 @@
+#include<malloc.h>
+#include<stdio.h>
+
+struct node
+{
+int info;
+struct node *link;
+};
+
+void swap(int k, struct node **start)
+{
+struct node* point=*start;
+struct node *temp,*temp1,*temp2;
+int i;
+if(k==1) //special case for first element bcoz of start.
+{
+temp2=point->link->link;
+point->link->link=point;
+*start=point->link;	
+point->link=temp2;
+}
+else
+{
+for(i=1;i<k-1;i++)
+{
+point=point->link;
+if((point==NULL) || (point->link->link==NULL))
+{
+printf("Out of bound index");
+return;
+}
+}
+
+printf("Inside swap func\n"); 
+temp1=point->link->link;
+temp2=point->link->link->link;
+point->link->link->link=point->link;
+point->link->link=temp2;
+point->link=temp1;
+}
+}
+
+int main()
+{
+int num,k;
+char a;
+struct node *start=NULL,*temp,*point;
+//Creating Link List
+do
+{
+temp=(struct node *) malloc(sizeof(struct node));
+if(start==NULL)
+{
+start=temp;
+point=temp;
+}
+else
+{
+point->link=temp;
+point=temp;
+}
+printf("enter info\n");
+scanf("%d",&num);
+point->info=num;
+point->link=NULL;
+printf("want to enter more nodes\n");
+a=getch();
+}while((a=='y')||(a=='Y'));
+
+//Printing LL.
+point=start;
+while(point!=NULL)
+{
+printf("%d\t",point->info);
+point=point->link;
+}
+getch();
+printf("enter the kth element to be swapped\n");
+scanf("%d",&k);
+swap(k,&start);
+
+//Printing LL after swap.
+point=start;
+while(point!=NULL)
+{
+printf("%d\t",point->info);
+point=point->link;
+}
+}

@@ -1,0 +1,273 @@
+# include <iostream>
+# include <conio.h>
+using namespace std;
+struct tanggal{
+	int tanggal;
+	int bulan;
+	int tahun;
+};
+struct simpul{
+	char nim[15];
+	char nama[30];
+	char buku[20];
+	tanggal data1;
+simpul *next;
+	
+};
+	simpul *awal;
+int opsi=0;
+
+void init(){
+	awal=NULL;
+}
+
+bool kosong(){
+	if (awal==NULL) return true;
+	else return false;
+}
+
+void depan(){
+	simpul *baru;
+	
+	baru=new simpul;
+	cout<<"Masukkan NIM         : ";
+	cin>>baru->nim;
+	cout<<"Masukkan Nama        : ";
+	cin>>baru->nama;
+	cout<<"Masukan Buku         : ";
+	cin>>baru->buku;
+	cout<<"   Tangal Masuk "<<endl;
+	cout<<"Tanggal	             :";
+	cin>>baru->data1.tanggal;
+	cout<<"Bulan	             :";
+	cin>>baru->data1.bulan;
+	cout<<"Tahun	             :";
+	cin>>baru->data1.tahun;
+	
+	baru->next=NULL;
+system("cls");
+
+if(kosong()==true){
+	awal=baru;
+	awal->next=NULL;
+  }
+  else {
+	baru->next=awal;
+	awal=baru;
+   }
+}
+
+void akhir(){
+
+	simpul *baru,*bantu;
+	
+	baru=new simpul;
+	cout<<"Masukkan NIM         : ";
+	cin>>baru->nim;
+	cout<<"Masukkan Nama        : ";
+	cin>>baru->nama;
+	cout<<"Masukan Buku         : ";
+	cin>>baru->buku;
+	cout<<"   Tangal Masuk "<<endl;
+	cout<<"Tanggal	             :";
+	cin>>baru->data1.tanggal;
+	cout<<"Bulan	             :";
+	cin>>baru->data1.bulan;
+	cout<<"Tahun	             :";
+	cin>>baru->data1.tahun;
+	baru->next=NULL;
+	system("cls");
+	
+if(kosong()==true){
+	awal=baru;
+	awal->next=NULL;
+	} 
+	else {
+	bantu=awal;
+	while(bantu->next!=NULL){
+	bantu=bantu->next;
+    }
+	bantu->next=baru;
+	}
+}
+
+void tengah(){
+simpul *baru, *bantu;
+
+	int posisiSisip;
+	if(kosong()==false){
+	cout<<"Akan disisip setelah Data Ke ? : "; cin>>posisiSisip;
+	bantu=awal;
+	baru=new simpul;
+	for(int i=1;i<posisiSisip;i++){
+		if(bantu->next!=NULL)
+		bantu=bantu->next;
+	else break;
+}
+	cout<<"Masukkan NIM         : ";
+	cin>>baru->nim;
+	cout<<"Masukkan Nama        : ";
+	cin>>baru->nama;
+	cout<<"Masukan Buku         : ";
+	cin>>baru->buku;
+	cout<<"   Tangal Masuk "<<endl;
+	cout<<"Tanggal	             :";
+	cin>>baru->data1.tanggal;
+	cout<<"Bulan	             :";
+	cin>>baru->data1.bulan;
+	cout<<"Tahun	             :";
+	cin>>baru->data1.tahun;
+	baru->next=bantu->next;
+	bantu->next=baru;
+system("cls");
+}
+else 
+cout<<"Data Kosong silahkan isi depan dan tengah ";
+}
+
+void hapusdepan() {
+simpul *hapus;
+
+	if (kosong()==false){
+	if(awal->next!=NULL){
+	hapus=awal;
+	awal=awal->next;
+	delete hapus;
+system("cls");
+} 
+else {
+	awal=NULL;
+}
+}
+else {
+cout<<"Data anda masih kosong";
+}
+}
+
+void hapusakhir(){
+simpul *hapus, *bantu;
+
+	if (kosong()==false){
+	if(awal->next!=NULL){
+	bantu=awal;
+	while(bantu->next->next!=NULL){
+	bantu=bantu->next;
+}
+	hapus=bantu->next;
+	bantu->next=NULL;
+	delete hapus;
+	system("cls");
+} 
+else {
+awal=NULL;
+}
+} 
+else {
+cout<<"Data anda masih kosong !!!!n";
+}
+}
+
+void hapustengah(){
+int banyakdata,posisiSisip,poshapus;
+simpul *hapus,*bantu;
+
+	if(kosong()==false){
+	cout<<" Akan dihapus pada data ke : "; cin>>posisiSisip;
+	banyakdata=1;
+	bantu=awal;
+	while(bantu->next!=NULL)
+	{
+	bantu=bantu->next;
+	banyakdata++;
+}
+	if((posisiSisip<1)||(posisiSisip>banyakdata)){
+	cout<<"Belum ada data !! …silahkan masukkan Data dula aja…..n";
+}
+	else {
+	bantu=awal;
+	poshapus=1;
+	while(poshapus<(posisiSisip-1))
+{
+	bantu=bantu->next;
+	poshapus++;
+}
+	hapus=bantu->next;
+	bantu->next=hapus->next;
+	delete hapus;
+system("cls");
+}
+}
+else 
+cout<<"Data Masih kosong, tidak bisa hapus data dari tengah! ";
+}
+
+void tampil(){
+system("cls");
+simpul *bantu;
+int a=1;
+
+	bantu=awal;
+	if(kosong()==true){
+	cout<<"Data masih kosong\n";
+} 
+else {
+	cout<<endl<<"DATA Perpustakaan \n";
+	while(bantu!=NULL){
+	cout<<endl;
+	cout<<"+++++++++++++++"<<endl;
+	cout<<"Data ke :"<<a++<<endl;
+	cout<<"+++++++++++++++"<<endl;
+	cout<<endl;
+	cout<<"NIM		: "<<bantu->nim<<" ";
+	cout<<endl;
+	cout<<"NAMA		: "<<bantu->nama<<" ";
+	cout<<endl;
+	cout<<"Buku		: "<<bantu->buku<<" ";
+	cout<<endl;
+	cout<<"   Tangal Masuk "<<endl;
+	cout<<endl;
+	cout<<"Tanggal	:"<<bantu->data1.tanggal<<" ";
+	cout<<endl;
+	cout<<"Bulan	:"<<bantu->data1.bulan<<" ";
+	cout<<endl;
+	cout<<"Tahun	:"<<bantu->data1.tahun<<" ";
+
+	cout<<endl;
+	bantu=bantu->next;
+
+}
+	cout<<endl;
+}
+}
+void tukar(){
+	
+}
+main(){
+
+		do{
+		cout<<endl;
+		    cout<<"MENU"<<endl;
+		   	cout<<endl;
+		cout<<"1.Tambah Simpul dari Depan"<<endl;
+		cout<<"2.Tambah Simpul dari Belakang"<<endl;
+		cout<<"3.Tambah Simpul dari Tengah"<<endl;
+		cout<<"4.Hapus Simpul dari Depan"<<endl;
+		cout<<"5.Hapus Simpul dari Belakang"<<endl;
+		cout<<"6.Hapus Simpul dari Tengah"<<endl;
+		cout<<"7.Tampil Data"<<endl;
+		cout<<"8.Keluar"<<endl;
+		cout<<endl;
+		
+		cout<< "Pilihan Menu : ";
+		cin >> opsi;
+     switch(opsi){
+		case 1 : depan();break;
+		case 2 : akhir();break;
+		case 3 : tengah();break;
+		case 4 : hapusdepan();break;
+		case 5 : hapusakhir();break;
+		case 6 : hapustengah();break;
+		case 7 : tampil();break;
+}
+}while (opsi!=8);
+}

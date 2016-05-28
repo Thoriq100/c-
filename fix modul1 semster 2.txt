@@ -1,0 +1,104 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+using namespace std;
+
+void hapus_data(int *pbatas, struct master_barang daftar[]);
+void display_data(int *pbatas, struct master_barang daftar[]);
+void display_menu();
+
+
+typedef struct master_barang{
+    string nama;
+    int harga;
+}item;
+
+
+main(){
+    int opsi, batas, z;
+    bool ulang = false;
+    bool hapus = false;
+    menu:
+    cout << "Jumlah Barang: ";
+    cin >> batas;
+    item barang[batas];
+
+    for(int i=0; i<batas; i++){
+        cout << "\nNama: ";
+        cin >> barang[i].nama;
+        cout << "Harga: ";
+        cin >> barang[i].harga;
+
+    }
+
+
+    do{
+
+        display_menu();
+        cout << "Menu: " << endl;
+        cin >> opsi;
+
+        switch (opsi){
+            case 1:
+                system ("cls");
+                display_data(&batas, barang);
+                break;
+
+            case 2:
+                hapus_data(&batas, barang);
+                system ("cls");
+                cout << "Data terhapus" << endl;
+                break;
+            case 3:
+            	goto menu;
+            	break;
+                
+            case 4 :
+            	ulang=true;
+                break;
+            default:
+                cout << "Opsi Tidak Tersedia";
+                break;
+            }
+    }while(!ulang);
+}
+
+void display_data(int *pbatas, struct master_barang daftar[]){
+
+    for(int i=0; i< *pbatas; i++){
+        cout << "\nNo. " << i+1 << ". " << endl;
+        cout << "Nama: " << daftar[i].nama << endl;
+        cout << "Harga: " << daftar[i].harga << endl;
+    }
+}
+void hapus_data(int *pbatas, struct master_barang daftar[]){
+
+    int pilih;
+    do{
+        cout << "Hapus Barang No: "; cin >> pilih;
+
+        if(pilih>*pbatas){
+            cout << "Data Tidak Tersedia. Coba Lagi" << endl;
+        }
+
+    }while(pilih>*pbatas);
+
+    for(int i=pilih-1; i<*pbatas-1; i++){
+        daftar[i].nama=daftar[i+1].nama;
+        daftar[i].nama=daftar[i+1].harga;
+    }
+    *pbatas-=1;
+}
+
+void display_menu(){
+	enum pilihan {Melihat=1,Menghapus,Inputkan,Keluar};
+    enum pilihan menu;
+	char *namamenu[]={"","Melihat","Menghapus","Inputkan","Keluar"};
+	cout<<"_Pratikum modul 1_"<<endl;
+	for(int menu=Melihat;menu<=4;menu++){
+		
+	printf("%2d.%11s\n",menu,namamenu[menu]);
+	}
+
+}

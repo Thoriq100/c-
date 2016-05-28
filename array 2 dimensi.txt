@@ -1,0 +1,31 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+main(){
+	int jumlah,i,j;
+	cout<<"Masukan Jumlah siswa :";
+	cin>>jumlah;
+	
+	int nilai[15][3];
+	for(i=1;i<=jumlah;i++){
+		cout<<"Nomer absen :"<<i<<endl;
+		for(j=1;j<4;j++){
+			cout<<"nilai kelas "<<j<<" = ";
+			cin>>nilai[i][j];
+		}
+		cout<<endl;
+	}
+	cout<<"Abseb\tkelas1\tkelas2\tkelas3"<<endl;
+	cout<<"_________________________________________"<<endl;
+	for(i=1;i<=jumlah;i++){
+		cout<<i<<"\t";
+		for(j=1;j<=3;j++){
+			cout<<nilai[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
+	getch();
+	
+}

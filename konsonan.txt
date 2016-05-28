@@ -1,0 +1,46 @@
+#include<iostream.h>
+int main()
+{
+	char input[50];
+	int vowel[50],consonent[50],a=0,b=0,p,q,c=0,v=0;
+   cout<<"Enter the string:";
+	cin>>input;
+	while(input[b]!=0)
+	{
+		if((input[b]>='a' || input[b]<='z') || (input[b]>='A' || input[b]<='Z'))
+		{
+			a++;
+			b++;
+		}
+	}
+	b = 0;
+	p = -1;
+	q = -1;
+	for(b=0;b<a;b++)
+	{
+		if(input[b]=='a' || input[b]=='e' || input[b]=='i' || input[b]=='o' || input[b]=='u' || input[b]=='A' || input[b]=='E' || input[b]=='I' || input[b]=='O' || input[b]=='U')
+		{
+			p++;
+			vowel[p]=b;
+		}
+		else
+		{
+			q++;
+			consonent[q]=b;
+		}
+	}
+   cout<<"\nThe vowels are:";
+	for(b=0;b<=p;b++)
+	{
+		cout<<(vowel[b]+1)<<",";
+		v+=(vowel[b]+1);
+	}
+	cout<<"\nThe consonents are:";
+	for(b=0;b<=q;b++)
+	{
+		cout<<(consonent[b]+1)<<",";
+		c+=(consonent[b]+1);
+	}
+	cout<<"\n\nSum of Vowels:"<<v;
+   cout<<"\n\nSum of consonents:"<<c;
+}

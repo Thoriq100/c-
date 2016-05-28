@@ -1,0 +1,23 @@
+#include <conio2.h>
+#include <stdio.h>
+int a;
+int main()
+{
+     clrscr();
+     a=1;
+     do 
+     {
+           printf("%d Elektronika Industri\n",a); 
+           a++;    
+     }
+     while (a<=10);
+     a=10;
+     printf("\n");
+     do 
+     {
+           printf("%d Industrial Electronics\n",a); 
+           a--;    
+     }
+     while (a>0);
+     getch();
+}

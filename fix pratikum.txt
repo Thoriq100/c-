@@ -1,0 +1,86 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <cstdlib>
+#include <string.h>
+#include <stdlib.h>
+
+using namespace std;
+
+void tampil(int *user, struct data daftar[]);
+
+
+
+typedef struct data{
+	string namabuku;
+	string rilis;
+	string kodebuku;
+	
+}data1;
+
+int user;
+enum pilihan {Inputkan=1,Melihat,Menghapus
+};
+
+main(){
+	bool mulai = false;
+    bool hapus = false;
+	int i,pil,jeda;
+	data buku[user];
+
+	enum pilihan menu;
+	char *namamenu[]={"","Inputkan","Melihat","Menghapus"};
+	cout<<"_Pratikum modul 1_"<<endl;
+	for(int menu=Inputkan;menu<=3;menu++){
+		
+	printf("%2d.%11s\n",menu,namamenu[menu]);
+	}
+	do{
+		
+	cout<<"Silahkan Memilih Menu di atas :";
+	cin>>pil;
+
+	
+	switch(pil)
+		{
+		
+		case 1:
+			cout<<"Masukan banyak data :";
+			cin>>user;
+			
+				for(int i=0;i<user;i++){
+				cout<<"Nama Buku :";
+				cin>>buku[i].namabuku;
+				cout<<"Kode Buku :";
+				cin>>buku[i].kodebuku;
+				cout<<"Tanggal rilis :";
+				cin>>buku[i].rilis;
+			
+				
+							
+			};
+			
+			
+		
+			break;
+		case 2:
+				system ("cls");
+                tampil(&user,buku);	
+                break;
+				
+				
+		}
+
+	}while(!mulai);
+}
+
+
+void tampil(int *user,struct data buku[]){
+	for(int i=0;i<*user;i++){
+        cout<<"\nNo. "<<i+1<<". "<<endl;
+        cout<<"Kode Buku : "<<buku[i].kodebuku<<endl;
+        cout<<"Nama buku : "<<buku[i].namabuku<<endl;        
+		cout<<"Rillis    : "<<buku[i].rilis<<endl;
+        
+
+};

@@ -1,0 +1,117 @@
+#include <iostream.h>  
+#include <conio.h>  
+#include <stdio.h>  
+  
+int top=0,r=-1,data[100];  
+struct data  
+{  
+    int id;  
+    char nm[10];  
+    char almt[10];  
+    int tlp;  
+}  
+    perpus[20];  
+  
+void search()  
+{     int cari,ketemu;  
+       cout<<"masukan nomer ID member: ";cin>>cari;  
+      ketemu=0;  
+      for (int i=top;i<=r;i++)  
+      {  
+          if(perpus[i].id==cari)  
+         {  
+             ketemu=1;  
+            cout<<"data ditemukan pada index ke:"<<r<<endl;  
+            cout<<"nama member    : "<<perpus[i].nm<<endl;  
+               cout<<"alamat member  : "<<perpus[i].almt<<endl;  
+               cout<<"telepon member : "<<perpus[i].tlp<<endl;  
+         }  
+      }  
+          if(ketemu==0)  
+         { cout<<"data tidak ada";}  
+}  
+  
+void perpustakaan()  
+{  
+   clrscr();  
+   cout<<"-------------------"<<endl;  
+    cout<<"Masukan         :"<<endl;  
+   cout<<"-------------------"<<endl;  
+    cout<<"nomor ID member : ";cin>>perpus[r].id;  
+    cout<<"nama member     : ";gets(perpus[r].nm);  
+    cout<<"alamat member   : ";gets(perpus[r].almt);  
+    cout<<"telpon member   : ";cin>>perpus[r].tlp;  
+}  /*  
+void shellsort()(perpus[r].nm);  
+{  
+int j,i,k,m,n,mid;  
+  
+for(m = n/2;m>0;m/=2)  
+{  
+for(j = m;j< n;j++)  
+{  
+for(i=j-m;i>=0;i-=m)  
+{  
+if(perpus[r+m].nm>=perpus[r].nm)  
+break;  
+else  
+{  
+mid = perpus[r].nm;  
+perpus[r].nm = perpus[r+m].nm;  
+perpus[r+m].nm = mid;  
+}  
+{cout<<"hasil"<<perpus[r].nm<<endl; }  
+}  
+}  
+}  
+}   */  
+void pop_data()  
+{  
+    top+=1;  
+    cout<<endl<<"Data di hapus !"<<endl;  
+}  
+  
+void view_data()  
+{  
+    for (int i=top;i<=r;i++)  
+    {  
+       cout<<endl;  
+      cout<<"Data yang telah dimasukan :"<<endl;  
+        cout<<"nomer ID      : "<<perpus[i].id<<endl;  
+       cout<<"nama member   : "<<perpus[i].nm<<endl;  
+       cout<<"alamat member : "<<perpus[i].almt<<endl;  
+       cout<<"telpon member : "<<perpus[i].tlp<<endl;  
+    }  
+}  
+  
+main()  
+{  
+    char ul;  
+    int pil;  
+    do  
+    {  
+       clrscr();  
+      cout<<"MENU TAMPILAN"<<endl;  
+        cout<<"\n1. Insert \n2. Delete \n3. View \n4. Search\n"<<endl;  
+       cout<<"Masukan pilihan : ";  
+       cin>>pil;  
+       switch(pil)  
+       {  
+               case 1 : r+=1;perpustakaan();break;  
+               case 2 : {if(top==0&&r==-1) {cout<<"Data Kosong !"<<endl;}  
+                        else {pop_data();}} break;  
+         case 3 : {if(top==0&&r==-1) {cout<<"Data Kosong !"<<endl;}  
+                    else {view_data();}} break;  
+         case 4 : {if(top==1&&r==-1) {cout<<"Data Kosong !"<<endl;}  
+                     else {search();}}break;  
+               default : cout<<"Pilihan tidak ada !"<<endl;  
+                           break;  
+       }  
+      cout<<endl;  
+       cout<<"Apa ingin mengulang (y/t): ";  
+       cin>>ul;  
+    }  
+   while (ul=='y'||ul=='Y');  
+  
+getch();  
+}   

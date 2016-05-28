@@ -1,0 +1,138 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+struct TNode {
+    int data;
+    TNode *next;
+};
+TNode *head;
+
+int isEmpty() {
+    if (head == NULL)
+        return 1;
+    else return 0;
+}
+
+void insertDepan(int databaru) {
+    TNode *baru;
+    baru = new TNode;
+    baru->data = databaru;
+    baru->next = NULL;
+    if (isEmpty() == 1) {
+        head = baru;
+        head->next = NULL;
+    } else {
+        baru->next = head;
+        head = baru;
+    }
+    cout << "\ndata berhasil dimasukan :\n";
+}
+
+void tampil() {
+    TNode *bantu;
+    bantu = head;
+    if (isEmpty() == 0) {
+        cout << "\ndata yang ada dalam list\n";
+        while (bantu != NULL) {
+            cout << bantu->data << "\n";
+            bantu = bantu->next;
+        }
+        cout << endl;
+    } else cout << "Masih kosong\n";
+}
+
+void hapusDepan() {
+    TNode *hapus;
+    int d;
+    if (isEmpty() == 0) {
+        if (head->next != NULL) {
+            hapus = head;
+            d = hapus->data;
+            head = head->next;
+            delete hapus;
+        } else {
+            d = head->data;
+            head = NULL;
+        }
+        cout << d << " terhapus\n";
+    } else cout << "Masih kosong\n";
+}
+void hapusBelakang(){
+	TNode *hapus,*bantu;
+	int d;
+	if (isEmpty()==0){
+	 if(head->next != NULL){
+		bantu = head;
+		while(bantu->next->next!=NULL){		 
+		  bantu = bantu->next;
+		}
+		hapus = bantu->next;
+		d = hapus->data;
+      		bantu->next = NULL;
+		delete hapus;
+	 } else {
+		d = head->data;
+		head = NULL;
+	 }
+	cout<<"terhapus\n";
+	} else cout<<"Masih kosong\n";
+}
+
+void insertBelakang (int databaru){
+ TNode *baru,*bantu;
+ baru = new TNode;
+ baru->data = databaru;
+ baru->next = NULL;
+ if(isEmpty()==1){
+  head=baru;
+  head->next = NULL;
+ }else {
+  bantu=head;
+  while(bantu->next!=NULL){
+   bantu=bantu->next;
+  }
+  bantu->next = baru;
+ }
+ cout<<"Data berhasil dimasukan\n";
+}
+
+int main() {
+    int databaru;
+    int pil;
+
+    cout << "linked List : \n" << endl;
+    cout << "1.Insert Dari Depan" << endl;
+    cout << "2.Insert Dari Belakang" << endl;
+    cout << "3.Tampil" << endl;
+    cout << "4.Hapus Dari Depan" << endl;
+    cout << "5.Hapus Dari Belakang" << endl;
+    cout << "6.Exit" << endl;
+    while (true) {
+        cout << "pilihn anda= ";
+        cin >> pil;
+        if (pil == 1) {
+            cout << "data :";
+            cin >> databaru;
+            insertDepan(databaru);
+        }
+          else if (pil == 2) {
+     cout << "data :";
+            cin >> databaru;
+            insertBelakang(databaru);
+        }
+   else if (pil == 3) {
+            tampil();
+        }
+   else if (pil == 4) {
+            hapusDepan();
+        }
+           else if (pil == 5) {
+            hapusBelakang();
+        }
+   else if (pil == 6) {
+            break;
+            return EXIT_SUCCESS;
+        }
+    }
+}

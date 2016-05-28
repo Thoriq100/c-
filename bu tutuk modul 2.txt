@@ -1,0 +1,64 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+typedef struct simpul{
+	int data4;
+	int data;
+	simpul *next;
+}toriq;
+main(){
+
+	toriq *awal,*akhir,*baru,*bantu, *b1;
+	awal=NULL;
+	int data1,data2;
+	menu:
+	cout<<"1.Inputkan"<<endl;
+	cout<<"2.Tampil data asli"<<endl;
+	cout<<"3.Tampil hapus kelitapan 6"<<endl;
+	cout<<"4.Masukan pilihan :";
+	cin>>data2;
+	do
+	{
+		switch(data2){
+		case 1:
+			char ya;
+		menu1:
+		cout<<"Masukan data ";
+		cin>>data1;
+		
+		baru=new simpul;
+		baru->data=data1;
+		baru->next=NULL;
+		if(awal==NULL){
+			awal=baru;
+			awal->next=NULL;
+		}
+		else{
+			baru->next=awal;
+			awal=baru;
+		}
+		
+	cout<<"jika input lagi tekan 'y'' jika tidak tekan 't' :";
+	cin>>ya;
+	if(ya=='y'){
+		goto menu1;
+	}else{
+		goto menu;
+	}
+case 2:
+	
+			baru = awal;
+			while (baru!=NULL)
+    		{
+			cout<<baru->data<<endl;
+    		baru =baru -> next;
+    		}
+    		system("pause");
+    		break;
+		case 3:break;
+	
+}
+ }while(data2!=5);
+}

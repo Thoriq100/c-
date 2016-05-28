@@ -1,0 +1,113 @@
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+
+using namespace std;
+
+void menghapus(int *bantu, struct data daftar[]);
+void tampil(int *bantu, struct data daftar[]);
+void menu();
+
+
+typedef struct data{
+    string nama;
+    string pencipta;
+    int loker;
+}isi;
+
+
+main(){
+    int pil,batas,z;
+    bool mulai=false;
+    bool hapus=false;
+    menu:
+    cout<<"data yang di masukan : ";
+    cin>>batas;
+    isi barang[batas];
+
+    for(int i=0; i<batas; i++){
+        cout<<"Nama Buku : ";
+        cin>>barang[i].nama;
+        cout<<"Pencipta : ";
+        cin>>barang[i].pencipta;
+        cout<<"Nomer Loker : ";
+        cin>>barang[i].loker;
+
+    }
+
+
+    do{
+
+        menu();
+        cout<<"Masukan Pilihan anda : ";
+        cin>>pil;
+
+        switch (pil){
+            case 1:
+                system ("cls");
+                tampil(&batas, barang);
+                break;
+
+            case 2:
+                menghapus(&batas, barang);
+                system ("cls");
+                cout << "Data terhapus" << endl;
+                break;
+            case 3:
+            	goto menu;
+            	break;
+                
+            case 4 :
+            	mulai=true;
+                break;
+            default:
+                cout << "Isikan sesuai nomer urut "<<endl;
+                break;
+            }
+    }while(!mulai);
+}
+
+void tampil(int *bantu, struct data daftar[]){
+
+
+
+    for(int i=0; i< *bantu; i++){
+        cout<<"\nNo : "<<i+1<<endl;
+        cout<<"Nama Buku : "<<daftar[i].nama<<endl;
+        cout<<"Pencipta :"<<daftar[i].pencipta<<endl;
+        cout<<"Nomer loker : "<< daftar[i].loker<<endl;
+        
+    }
+}
+void menghapus(int *bantu, struct data daftar[]){
+
+    int pilih;
+    do{
+        cout<<"Hapus Barang No: "; 
+		cin>>pilih;
+
+        if(pilih>*bantu){
+            cout<<"Silahkan hapus sesuai urut nomer data "<<endl;
+        }
+
+    }while(pilih>*bantu);
+
+    for(int i=pilih-1; i<*bantu-1; i++){
+        daftar[i].nama=daftar[i+1].nama;
+        daftar[i].nama=daftar[i+1].pencipta;
+        daftar[i].nama=daftar[i+1].loker;
+    }
+    *bantu-=1;
+}
+
+void menu(){
+	enum pilihan {Melihat=1,Menghapus,Inputkan,Keluar};
+    enum pilihan menu;
+	char *namamenu[]={"","Melihat","Menghapus","Inputkan","Keluar"};
+	cout<<"_Pratikum modul 1_"<<endl;
+	for(int menu=Melihat;menu<=4;menu++){
+		
+	printf("%2d.%11s\n",menu,namamenu[menu]);
+	}
+
+}

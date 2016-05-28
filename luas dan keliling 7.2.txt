@@ -1,0 +1,19 @@
+#include <iostream>
+#include <conio.h>
+#include <iomanip>
+
+using namespace std;
+
+main(){
+
+const float phi=3.141592;
+float jari_jari,keliling,luas;
+jari_jari = 7.2;
+luas = phi * jari_jari * jari_jari;
+keliling = 2 * phi * jari_jari;
+
+cout <<setprecision(5);
+cout << "Luas lingkaran adalah " << luas << "satuan luas \n";
+cout << "Keliling lingkaran adalah " << keliling <<"satuan panjang \n";
+getch();
+}
