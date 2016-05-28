@@ -1,0 +1,386 @@
+#include<iostream>
+#include<conio.h>
+#include <string>
+
+using namespace std;
+
+    struct simpul
+	{
+		string nama;
+		string alamat;
+		string pencipta;
+		string kode;
+		string harga;
+		simpul *next;
+    };simpul *baru,*awal,*akhir,*bantu,*b1;
+
+void tukar(int x,int x1){
+
+   if(awal!=NULL){     
+     int data=1,data1=1;     
+     simpul *temp,*temp1;
+     temp=awal;
+     temp1=awal;
+     while(temp->next!=NULL && data!=x ){
+         temp=temp->next;
+         data++;
+     }
+     while(temp1->next!=NULL && data1!=x1){
+         temp1=temp1->next;
+         data1++;
+     }
+     if(data==x && data1==x1){
+       string z;
+       z=temp->nama;
+       temp->nama=temp1->nama;
+       temp1->nama=z;
+       z=temp->alamat;
+       temp->alamat=temp1->alamat;
+       temp1->alamat=z;
+       z=temp->pencipta;
+       temp->pencipta=temp1->pencipta;
+       temp1->pencipta=z;
+       z=temp->kode;
+       temp->kode=temp1->kode;
+       temp1->kode=z;
+       z=temp->harga;
+       temp->harga=temp1->harga;
+       temp1->harga=z;
+       
+       cout<<"Data Tertukar"<<endl;
+    }
+  }
+}
+char bo;
+    int main ()
+	{
+    	string data1,data2,data3,data4,data5;;
+    	int pil;
+    
+    	menu:
+    	do
+    	{
+    	cout<<endl;
+    	cout<<"1.inputkan"<<endl;
+    	cout<<"2.tampil"<<endl;
+    	cout<<"3.Hapus "<<endl;
+    	cout<<"4.Tukar data"<<endl;
+    	cout<<"5.Reser data"<<endl;
+    	cout<<"pilih :";
+    	cin>>pil;
+    	cout<<endl;
+    		
+    		switch(pil){
+    			case 1:
+    				int pilihan;
+    				menu2:
+    				do{
+					cout<<endl;
+    				cout<<"1.input depan"<<endl;
+    				cout<<"2.input akhir"<<endl;
+    				cout<<"3.input tengah"<<endl;
+    				cout<<"Masukan pilihan input :";
+    				cin>>pilihan;
+    				switch(pilihan){
+    					case 1:
+			baru=new simpul;
+	        cout<<"Nama           : ";
+	    	cin>>data1;
+	    	cout<<"Alamat Pembeli :";
+	    	cin>>data2;
+	    	cout<<"Nama buku      : ";
+	    	cin>>data3;
+	    	cout<<"Kode Buku      : ";
+	    	cin>>data4;
+	    	cout<<"Harga Buku     :";
+	    	cin>>data5;
+	    	
+	    	baru = new simpul;
+	    	baru->nama = data1;
+	    	baru->alamat = data2;
+	    	baru->pencipta = data3;
+	    	baru->kode = data4;
+	    	baru->harga = data5;
+	    	baru->next = NULL;
+
+			if(awal==NULL){
+			awal=baru;
+			awal->next=NULL;
+			  }
+ 			 else {
+			baru->next=awal;
+			awal=baru;
+  			 }
+  			
+   				goto menu;
+   		break;
+
+    						
+    					case 2:
+    		cout<<"Nama           : ";
+	    	cin>>data1;
+	    	cout<<"Alamat Pembeli :";
+	    	cin>>data2;
+	    	cout<<"Nama buku      : ";
+	    	cin>>data3;
+	    	cout<<"Kode Buku      : ";
+	    	cin>>data4;
+	    	cout<<"Harga Buku     :";
+	    	cin>>data5;
+	    	akhir=awal;
+	    	baru = new simpul;
+	    	baru->nama = data1;
+	    	baru->alamat = data2;
+	    	baru->pencipta = data3;
+	    	baru->kode = data4;
+	    	baru->harga = data5;
+	    	baru->next = NULL;
+	    	
+	    	if (akhir==NULL)
+	    	{
+	    		awal=baru;
+	    		awal->next=NULL;
+	    	}
+	    	else
+	    	{
+	    		bantu=awal;
+	    		while(bantu->next!=NULL){
+	    			bantu=bantu->next;
+				}
+	    		bantu->next=baru;
+	    	}
+			
+		
+   			goto menu;
+   			break;
+    		case 3:
+    		int posisiSisip;
+			
+			if(awal==NULL){
+			cout<<"Nama           : ";
+	    	cin>>data1;
+	    	cout<<"Alamat Pembeli :";
+	    	cin>>data2;
+	    	cout<<"Nama buku      : ";
+	    	cin>>data3;
+	    	cout<<"Kode Buku      : ";
+	    	cin>>data4;
+	    	cout<<"Harga Buku     :";
+	    	cin>>data5;
+			baru=new simpul;
+	    	baru->nama = data1;
+	    	baru->alamat = data2;
+	    	baru->pencipta = data3;
+	    	baru->kode = data4;
+	    	baru->harga = data5;
+	    	baru->next = NULL;
+
+
+			awal=baru;
+			akhir=awal;
+			awal->next=NULL;
+			
+			}else if(awal==akhir){
+				cout<<"Akan disisip setelah Data Ke ? : "; 
+			cin>>posisiSisip;
+			bantu=awal;
+		
+			for(int i=1;i<posisiSisip;i++){
+			if(bantu->next!=NULL)
+			bantu=bantu->next;
+			else break;
+			}
+            cout<<"Nama           : ";
+	    	cin>>data1;
+	    	cout<<"Alamat Pembeli :";
+	    	cin>>data2;
+	    	cout<<"Nama buku      : ";
+	    	cin>>data3;
+	    	cout<<"Kode Buku      : ";
+	    	cin>>data4;
+	    	cout<<"Harga Buku     :";
+	    	cin>>data5;
+	    	
+	    	baru = new simpul;
+	    	baru->nama = data1;
+	    	baru->alamat = data2;
+	    	baru->pencipta = data3;
+	    	baru->kode = data4;
+	    	baru->harga = data5;
+			baru->next=bantu->next;
+			bantu->next=baru;
+    
+		
+	    	
+	    	}
+	    
+	    	else if(akhir==NULL){
+	    			cout<<"Nama           : ";
+	    	cin>>data1;
+	    	cout<<"Alamat Pembeli :";
+	    	cin>>data2;
+	    	cout<<"Nama buku      : ";
+	    	cin>>data3;
+	    	cout<<"Kode Buku      : ";
+	    	cin>>data4;
+	    	cout<<"Harga Buku     :";
+	    	cin>>data5;
+			
+			baru=new simpul;
+	    	baru->nama = data1;
+	    	baru->alamat = data2;
+	    	baru->pencipta = data3;
+	    	baru->kode = data4;
+	    	baru->harga = data5;
+	    	baru->next = NULL;
+	    
+	    	bantu=awal;
+	    		while(bantu->next!=NULL){
+	    			bantu=bantu->next;
+				}
+	    		bantu->next=baru;
+	    	
+	    	
+		}else{
+			cout<<"data kosong"<<endl;
+		}
+				
+				
+			
+		
+		
+   				goto menu;
+   	
+   		}
+			}while(pilihan!=4);
+					
+    		
+			case 2:
+			
+			baru = awal;
+			
+			
+		
+    			while(baru!=NULL){
+				
+    		cout<<endl;
+    		cout<<endl;
+			cout<<"Nama       :"<<baru->nama<<endl;
+    		cout<<"Alamat     :"<<baru->alamat<<endl;
+    		cout<<"Nama buku  :"<<baru->pencipta<<endl;
+	    	cout<<"Kode Buku  : "<<baru->kode<<endl;
+	    	cout<<"Harga Buku : "<<baru->harga<<endl;
+    		baru =baru -> next;
+    	}
+    		
+			 
+			break;
+    		
+    		case 3:
+    			int data;
+    			cout<<"1.hapus depan"<<endl;
+    				cout<<"2.hapus akhir"<<endl;
+    				cout<<"3.hapus tengah"<<endl;
+    				cout<<"Masukan pilihan";
+    				cin>>data;
+				menu3:
+				do{
+					switch(data){
+    				
+    				case 1:
+    					simpul *hapus;
+			if(awal->next!=NULL){
+				hapus=awal;
+				awal=awal->next;
+				delete hapus;
+				system("cls");
+			} 
+			else {
+			awal=NULL;
+			}
+			cout<<"ingin lanjut ke menu utama y/t";
+  			bo=_getch();
+   			if(bo=='y'){
+   				goto menu;
+   			}else{
+   			goto menu3;
+			
+				}break;
+			
+			case 2:
+			simpul *bantu;
+			
+			if(awal->next!=NULL){
+			bantu=awal;
+			while(bantu->next->next!=NULL){
+			bantu=bantu->next;
+			}
+			hapus=bantu->next;
+			bantu->next=NULL;
+			delete hapus;
+			system("cls");
+			} 
+			else {
+			awal=NULL;
+			}
+				
+			cout<<"ingin lanjut ke menu utama y/t";
+  			bo=_getch();
+   			if(bo=='y'){
+   				goto menu;
+   			}else{
+   			goto menu3;
+			
+				}break;	
+	
+				case 3 :
+					int banyakdata,posisiSisip,poshapus;
+           cout<<" Akan dihapus pada data ke : "; 
+		   cin>>posisiSisip;
+		   banyakdata=1;
+	    	bantu=awal;
+			while(bantu->next!=NULL)
+			{
+			bantu=bantu->next;
+			banyakdata++;
+			}
+			if((posisiSisip<1)||(posisiSisip>banyakdata)){
+			cout<<"Belum ada data !!";
+			}
+			else {
+			bantu=awal;
+			poshapus=1;
+			while(poshapus<(posisiSisip-1))
+			{
+			bantu=bantu->next;
+			poshapus++;
+			}
+			hapus=bantu->next;
+			bantu->next=hapus->next;
+			delete hapus;
+			system("cls");
+			}
+			}break;
+				}while(data!=4);
+			case 4 :
+				int l,p;
+				cout<<"data ke :";
+				cin>>l;
+				cout<<"Menuju ke :";
+				cin>>p;
+				tukar(l,p);
+		break;
+		case 5:
+			if(awal!=NULL){
+				awal=NULL;
+				akhir=NULL;
+				cout<<"data sudah ter reset"<<endl;
+			}else{
+				cout<<"Data kosong"<<endl;
+			}
+	}
+		}while (pil!=6);
+    getch();
+    }
+    
+    
